@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Профиль с данными пользователя -->
+                <div class="col-md-5">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                        <h3 class="text-center mb-4">Профиль пользователя</h3>
+                        <form action="{% url 'users:profile' %}" method="post">
+                            <div class="row">
+                                <div class="col-md-12 mb-3 text-center">
+                                    <img src="{% static 'deps/images/baseavatar.jpg' %}"
+                                         alt="Аватар пользователя" class="img-fluid rounded-circle"
+                                         style="max-width: 150px;">
+                                    <input type="file" class="form-control mt-3" id="id_image"
+                                           name="image"
+                                           accept="image/*">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_first_name" class="form-label">Имя*</label>
+                                    <input type="text" class="form-control" id="id_first_name"
+                                           name="first_name"
+                                           placeholder="Введите ваше имя"
+                                           value="{{ form.first_name.value }}"
+                                           required>
+                                    {% if form.first_name.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_last_name" class="form-label">Фамилия*</label>
+                                    <input type="text" class="form-control" id="id_last_name"
+                                           name="last_name"
+                                           placeholder="Введите вашу фамилию"
+                                           value="{{ form.last_name.value }}"
+                                           required>
+                                    {% if form.last_name.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_username" class="form-label">Имя пользователя*</label>
+                                    <input type="text" class="form-control" id="id_username"
+                                           name="username"
+                                           placeholder="Введите ваше имя пользователя"
+                                           value="{{ form.username.value }}"
+                                           required>
+                                    {% if form.username.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_email" class="form-label">Email*</label>
+                                    <input type="email" class="form-control" id="id_email"
+                                           name="email"
+                                           placeholder="Введите ваш email *youremail@example.com"
+                                           value="{{ form.email.value }}"
+                                           required>
+                                    {% if form.email.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Форма поиска -->
+                <div class="col-md-7">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                        <h3 class="text-center mb-4">Поиск</h3>
+                        <p class="m-2" style="font-size: 1.2rem;">Данные предоставлены <a href="https://pass.rw.by" target="_blank">Белорусской железной дорогой</a></p><br>
+                        <div class="container" id="cart-items-container">
+                            <!-- Разметка формы поиска -->
+                            <form>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Откуда">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Куда">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="date" class="form-control">
+                                </div>
+                            </form>
+                            <!-- Закончилась разметка формы поиска -->
+                        </div>
+                        <a class="btn btn-dark" href="../orders/create_order.html">Найти</a>
+                    </div>
+                </div>
+                <!-- Разметка карта и погода -->
+                <div class="col-md-12">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                        <h3 class="text-center mb-4">Карта и погода</h3>
+                        <div class="container" id="cart-items-container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                                        <h3>Карта</h3>
+                                        <div style="position:relative;overflow:hidden;">
+                                            <a href="https://yandex.by/maps?utm_medium=mapframe&utm_source=maps"
+                                               style="color:#eee;font-size:12px;position:absolute;top:0px;">Яндекс Карты</a>
+                                            <a href="https://yandex.by/maps/profile?ll=28.157326%2C53.852348&utm_medium=mapframe&utm_source=maps&z=8"
+                                               style="color:#eee;font-size:12px;position:absolute;top:14px;">Яндекс Карты — транспорт, навигация, поиск мест</a>
+                                            <iframe src="https://yandex.by/map-widget/v1/profile?ll=28.157326%2C53.852348&z=8" width="560" height="400" frameborder="1"
+                                                    allowfullscreen="true" style="position:relative;"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                                        <h3>Погода</h3>
+                                        <form>
+                                            <div class="md-3">
+                                                <input type="text" class="form-control" placeholder="Введите название города">
+                                            </div>
+                                        </form>
+                                        <br>
+                                        <a class="btn btn-dark" href="../orders/create_order.html">Найти</a>
+                                        <br><hr>
+                                            <div class=" bg-white mb-4 mx-2">
+                                                <h4>Погода в Минске</h4>
+                                            </div>
+                                            <hr>
+                                            <div class="md-3">
+                                                <table>
+                                                    <tr>
+                                                        <td>11</td>
+                                                        <td>12</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>21</td>
+                                                        <td>22</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>31</td>
+                                                        <td>32</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- История поиска -->
+                <div class="col-md-12">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                        <h3 class="text-center mb-4">История поиска</h3>
+                        <!-- Разметка истории поиска -->
+                        <div class="container">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading1">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                                            Заказ № 256 - 09 сентября 2023 9:04
+                                        </button>
+                                    </h2>
+                                    <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <table class="table table-dark table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Поезд</th>
+                                                    <th>Отправление</th>
+                                                    <th>Прибытие</th>
+                                                    <th>Время в пути</th>
+                                                    <th>Стоимость</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><a class="text-white" href="#">6122 Молодечно — Минск-Пассажирский</a></td>
+                                                    <td>12:58</td>
+                                                    <td>14:50</td>
+                                                    <td>1 ч 52 мин</td>
+                                                    <td>2,95 BYN</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading2">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                            Заказ № 248 - 01 августа 2023 11:28
+                                        </button>
+                                    </h2>
+                                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <table class="table table-dark table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Поезд</th>
+                                                    <th>Отправление</th>
+                                                    <th>Прибытие</th>
+                                                    <th>Время в пути</th>
+                                                    <th>Стоимость</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><a class="text-white" href="#">739Б Гомель — Минск-Пассажирский</a></td>
+                                                    <td>15:10</td>
+                                                    <td>18:08</td>
+                                                    <td>2 ч 58 мин</td>
+                                                    <td>23,90 BYN</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Закончилась разметка истории поиска -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
